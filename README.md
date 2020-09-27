@@ -1,3 +1,7 @@
+## Demo
+![SortingVisualiserDemo](public/demo.gif)
+
+
 ## Available Scripts
 
 In the project directory, you can run:

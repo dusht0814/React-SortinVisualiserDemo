@@ -1,7 +1,7 @@
 import React from 'react';
 import {getMergeSortAnimations,bubbleSort} from '../sortingAlgorithms/sortingAlgorithms.js';
 import './Visualiser.css';
-const ANIMATION_SPEED_MS = 3;
+const ANIMATION_SPEED_MS = 1;
 
 const NUMBER_OF_ARRAY_BARS = 310;
 
@@ -15,6 +15,7 @@ export default class Visualiser extends React.Component {
 
     this.state = {
       array: [],
+      sortOn:false,
     };
   }
 
@@ -36,6 +37,7 @@ export default class Visualiser extends React.Component {
 
 
   mergeSort() {
+    this.setState({sortOn:true});
     const animations = getMergeSortAnimations(this.state.array);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
@@ -66,6 +68,7 @@ export default class Visualiser extends React.Component {
  
 
   bubbleSort(){
+    this.setState({sortOn:true});
     const animations = bubbleSort(this.state.array);
     for(let i=0; i < animations.length;i++){
         const arrayBars = document.getElementsByClassName('array-bar');
@@ -79,7 +82,7 @@ export default class Visualiser extends React.Component {
             barOneStyle.backgroundColor = color;
             barTwoStyle.backgroundColor = color;
             
-        },i*ANIMATION_SPEED_MS);
+        },ANIMATION_SPEED_MS);
         
     }
     else{
@@ -90,7 +93,7 @@ export default class Visualiser extends React.Component {
         const barTwoStyle = arrayBars[barTwoIdx].style;
         barTwoStyle.height = `${newHeight2}px`;
  
-      },i*ANIMATION_SPEED_MS);
+      },ANIMATION_SPEED_MS);
   }
 }
   }
@@ -111,9 +114,9 @@ export default class Visualiser extends React.Component {
               height: `${value}px`,
             }}></div>
         ))}
-        <button onClick={() => this.resetArray()}>Generate New Array</button>
-        <button onClick={() => this.mergeSort()}>Merge Sort</button>
-        <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+        <button onClick={() => this.resetArray() } disabled={this.state.sortOn} >Generate New Array</button>
+        <button onClick={() => this.mergeSort() } disabled={this.state.sortOn} >Merge Sort</button>
+        <button onClick={() => this.bubbleSort()} disabled={this.state.sortOn}>Bubble Sort</button>
         
       </div>
     );
